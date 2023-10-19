@@ -4,26 +4,30 @@ import * as React from 'react';
 import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HomeScreen from "./src/screens/HomeScreen"
+import ProductsScreen from './src/screens/ProductsScreen';
+import { RootStackParamList } from './src/types/RootStackParamList';
+import CartScreen from './src/screens/CartScreen';
+// import { CartContextProvider } from './src/store/cart-context';
+import { Provider } from "react-redux"
+import store from './src/store';
 
-function HomeScreen()
-{
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
-    </View>
-  );
-}
-
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function App()
 {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    // <CartContextProvider>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Products" component={ProductsScreen} />
+          <Stack.Screen name="Cart" component={CartScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
+    // </CartContextProvider>
   );
 }
 
